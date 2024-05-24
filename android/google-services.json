@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "698400649961",
+    "project_id": "familyhostel-74afd",
+    "storage_bucket": "familyhostel-74afd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698400649961:android:3eb3cf29f7f85c69feb678",
+        "android_client_info": {
+          "package_name": "com.family.hostel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdMJfWhrYG0Dpg59pnxaGtR-33M_dNYNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
