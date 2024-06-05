@@ -30,6 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   void initState() {
+
     hostelsCounter.searchHotelByName('');
     WidgetsBinding.instance.addPostFrameCallback((_) => _requestKeyboard());
     super.initState();
