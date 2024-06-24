@@ -9,6 +9,7 @@ import 'package:hostels/network/client.dart';
 import 'package:hostels/providers/hotels_provider.dart';
 import 'package:hostels/ui/home/detail_room/comfortableness_item.dart';
 import 'package:hostels/ui/home/detail_room/comments_item.dart';
+import 'package:hostels/ui/home/detail_room/detail/image_screen.dart';
 import 'package:hostels/ui/home/detail_room/order/order_screen.dart';
 import 'package:hostels/ui/home/loading_detail_screen.dart';
 import 'package:hostels/variables/icons.dart';
@@ -76,11 +77,12 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Consumer(
                   builder: (context, ref, child) {
                     var notifier = ref.watch(commentProvider);
+
                     if (notifier.commentList == null) {
                       return const LoadingDetailScreen();
                     } else {
                       int count = getFilteredComment(
-                          notifier.commentList!, widget.hostel)
+                              notifier.commentList!, widget.hostel)
                           .length;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,36 +101,36 @@ class _DetailScreenState extends State<DetailScreen> {
                 bottom: 0,
                 child: likeTapped && !isConnected
                     ? Container(
-                  padding: EdgeInsets.all(12.o),
-                  color: Colors.black,
-                  width: double.infinity,
-                  height: 75.o,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        maxLines: 2,
-                        reaction.tr,
-                        style: theme.primaryTextStyle.copyWith(
-                            color: Colors.white, fontSize: 12.o),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            likeTapped = false;
-                          });
-                        },
-                        child: Text(
-                          textAlign: TextAlign.end,
-                          skip.tr,
-                          style: theme.primaryTextStyle.copyWith(
-                              color: Colors.grey, fontSize: 10.o),
+                        padding: EdgeInsets.all(12.o),
+                        color: Colors.black,
+                        width: double.infinity,
+                        height: 75.o,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              maxLines: 2,
+                              reaction.tr,
+                              style: theme.primaryTextStyle.copyWith(
+                                  color: Colors.white, fontSize: 12.o),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  likeTapped = false;
+                                });
+                              },
+                              child: Text(
+                                textAlign: TextAlign.end,
+                                skip.tr,
+                                style: theme.primaryTextStyle.copyWith(
+                                    color: Colors.grey, fontSize: 10.o),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                )
+                      )
                     : Container(),
               ),
             ],
@@ -144,12 +146,21 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget _buildImageStack() {
     return Stack(
       children: [
-        FadeInImage(
-          placeholder: MemoryImage(kTransparentImage),
-          image: NetworkImage(selectedImage),
-          height: 374.o,
-          width: double.infinity,
-          fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) {
+                return  ImageScreen(imageUrl: widget.hostel.imageUrls,);
+              },
+            ));
+          },
+          child: FadeInImage(
+            placeholder: MemoryImage(kTransparentImage),
+            image: NetworkImage(selectedImage),
+            height: 374.o,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
         ),
         Positioned(
           child: _buildBackButton(),
@@ -246,9 +257,9 @@ class _DetailScreenState extends State<DetailScreen> {
             ),
             margin: EdgeInsets.symmetric(horizontal: 6.o),
             width:
-            selectedImage == widget.hostel.imageUrls[index] ? 75.o : 60.o,
+                selectedImage == widget.hostel.imageUrls[index] ? 75.o : 60.o,
             height:
-            selectedImage == widget.hostel.imageUrls[index] ? 75.o : 60.o,
+                selectedImage == widget.hostel.imageUrls[index] ? 75.o : 60.o,
             child: ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(8.o)),
               child: BackdropFilter(
@@ -291,8 +302,8 @@ class _DetailScreenState extends State<DetailScreen> {
               Gap(20.o),
               _buildTitle(
                   double.tryParse(
-                    widget.hostel.rating,
-                  ) ??
+                        widget.hostel.rating,
+                      ) ??
                       0.0,
                   count,
                   mTheme),
@@ -375,9 +386,9 @@ class _DetailScreenState extends State<DetailScreen> {
                     ignoreGestures: true,
                     itemSize: 25.o,
                     initialRating: double.tryParse(hostelNotifier.hostelsList!
-                        .firstWhere(
-                            (hostels) => hostels.id == widget.hostel.id)
-                        .rating) ??
+                            .firstWhere(
+                                (hostels) => hostels.id == widget.hostel.id)
+                            .rating) ??
                         0.0,
                     // ignoreGestures: isEditable ? false : true,
                     allowHalfRating: true,
@@ -395,11 +406,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   // SvgPicture.asset(SVGIcons.star),
                   Gap(10.o),
                   Text(
-                    '${double.tryParse(hostelNotifier.hostelsList!
-                        .firstWhere(
-                            (hostels) => hostels.id == widget.hostel.id)
-                        .rating) ??
-                        0.0}',
+                    '${double.tryParse(hostelNotifier.hostelsList!.firstWhere((hostels) => hostels.id == widget.hostel.id).rating) ?? 0.0}',
                     style: theme.primaryTextStyle.copyWith(
                         fontWeight: FontWeight.bold,
                         color: mTheme.colorScheme.primary),
@@ -436,47 +443,47 @@ class _DetailScreenState extends State<DetailScreen> {
         final notifier = ref.watch(hostelsProvider);
         return isConnected
             ? GestureDetector(
-          onTap: () {
-            setState(() {
-              setState(() {
-                notifier.postFavourite(
-                  hotelId: widget.hostel.id,
-                );
-              });
-            });
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: theme.purpleColor.withOpacity(0.1),
-              borderRadius: BorderRadius.all(Radius.circular(8.o)),
-            ),
-            padding: EdgeInsets.all(8.o),
-            child: SvgPicture.asset(
-              widget.hostel.liked
-                  ? SVGIcons.heart
-                  : SVGIcons.outLinedHeart,
-            ),
-          ),
-        )
+                onTap: () {
+                  setState(() {
+                    setState(() {
+                      notifier.postFavourite(
+                        hotelId: widget.hostel.id,
+                      );
+                    });
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.purpleColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.all(Radius.circular(8.o)),
+                  ),
+                  padding: EdgeInsets.all(8.o),
+                  child: SvgPicture.asset(
+                    widget.hostel.liked
+                        ? SVGIcons.heart
+                        : SVGIcons.outLinedHeart,
+                  ),
+                ),
+              )
             : InkWell(
-          onTap: () {
-            setState(() {
-              setState(() {
-                likeTapped = true;
-              });
-            });
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: theme.purpleColor.withOpacity(0.1),
-              borderRadius: BorderRadius.all(Radius.circular(8.o)),
-            ),
-            padding: EdgeInsets.all(8.o),
-            child: SvgPicture.asset(
-              SVGIcons.outLinedHeart,
-            ),
-          ),
-        );
+                onTap: () {
+                  setState(() {
+                    setState(() {
+                      likeTapped = true;
+                    });
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.purpleColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.all(Radius.circular(8.o)),
+                  ),
+                  padding: EdgeInsets.all(8.o),
+                  child: SvgPicture.asset(
+                    SVGIcons.outLinedHeart,
+                  ),
+                ),
+              );
       },
     );
   }
@@ -495,7 +502,7 @@ class _DetailScreenState extends State<DetailScreen> {
         Gap(10.o),
         Text(
           widget.hostel.description,
-          maxLines: 2,
+          maxLines: 5,
           overflow: TextOverflow.ellipsis,
           style: theme.primaryTextStyle.copyWith(
             color: mTheme.colorScheme.surface,
@@ -550,8 +557,8 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   Widget _buildCommentsList(
-      List<Comment> comments,
-      ) {
+    List<Comment> comments,
+  ) {
     return SizedBox(
       height: 200.o,
       child: ListView.builder(
@@ -559,6 +566,7 @@ class _DetailScreenState extends State<DetailScreen> {
         itemCount: comments.length,
         itemBuilder: (context, index) {
           return CommentsItem(
+            fromAllScreen: false,
             comment: comments[index],
             rating: double.tryParse(comments[index].rating) ?? 0.0,
             width: 0.85,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hostels/apptheme.dart';
 import 'package:hostels/providers/room_provider.dart';
-import 'package:hostels/ui/home/detail_room/order/choosing_room/amount_travellers_bottom_sheet.dart';
 import 'package:hostels/ui/home/detail_room/order/choosing_room/calendar_bottom_sheet.dart';
 import 'package:hostels/ui/home/detail_room/order/choosing_room/filter_container.dart';
 import 'package:hostels/ui/home/detail_room/order/choosing_room/rooms_item.dart';
@@ -99,38 +98,38 @@ class _OrderScreenState extends State<OrderScreen> {
                 );
               },
             ),
-            Gap(10.o),
-            FilterContainer(
-              leadingIcon: Icons.person,
-              title: guest.tr,
-              subtitle:
-                  '${adultsIncrementer + childrenIncrementer} ${geust.tr}, $roomsIncrementer ${roomCount.tr}',
-              onTap: () {
-                showModalBottomSheet(
-                  backgroundColor: mTheme.colorScheme.background,
-                  isScrollControlled: true,
-                  useSafeArea: true,
-/*                  constraints: BoxConstraints.tight(Size(
-                      MediaQuery.of(context).size.width,
-                      MediaQuery.of(context).size.height))*/
-                  context: context,
-                  builder: (context) {
-                    return AmountTravellersBottomSheet(
-                      adultsIncrementer: adultsIncrementer,
-                      childrenIncrementer: childrenIncrementer,
-                      roomsIncrementer: roomsIncrementer,
-                      onTap: (adult, children, room) {
-                        setState(() {
-                          adultsIncrementer = adult;
-                          childrenIncrementer = children;
-                          roomsIncrementer = room;
-                        });
-                      },
-                    );
-                  },
-                );
-              },
-            ),
+//             Gap(10.o),
+//             FilterContainer(
+//               leadingIcon: Icons.person,
+//               title: guest.tr,
+//               subtitle:
+//                   '${adultsIncrementer + childrenIncrementer} ${geust.tr}, $roomsIncrementer ${roomCount.tr}',
+//               onTap: () {
+//                 showModalBottomSheet(
+//                   backgroundColor: mTheme.colorScheme.background,
+//                   isScrollControlled: true,
+//                   useSafeArea: true,
+// /*                  constraints: BoxConstraints.tight(Size(
+//                       MediaQuery.of(context).size.width,
+//                       MediaQuery.of(context).size.height))*/
+//                   context: context,
+//                   builder: (context) {
+//                     return AmountTravellersBottomSheet(
+//                       adultsIncrementer: adultsIncrementer,
+//                       childrenIncrementer: childrenIncrementer,
+//                       roomsIncrementer: roomsIncrementer,
+//                       onTap: (adult, children, room) {
+//                         setState(() {
+//                           adultsIncrementer = adult;
+//                           childrenIncrementer = children;
+//                           roomsIncrementer = room;
+//                         });
+//                       },
+//                     );
+//                   },
+//                 );
+//               },
+//             ),
             Gap(20.o),
             Consumer(builder: (context, ref, child) {
               print('${isFiltered}works?');
@@ -267,6 +266,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   isFiltered = false;
                                 });
                                 notifier.getAllRoom(hotelId: widget.hotelId);
+                                amountNights = 1;
                               },
                               child: Container(
                                   padding: EdgeInsets.all(8.o),
@@ -297,18 +297,19 @@ class _OrderScreenState extends State<OrderScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 12.o),
                         child: InkWell(
                           onTap: () {
-                            roomCounter.getRoomList(
-                              childCount: childrenIncrementer,
-                              finishedSDate: finishedDate,
-                              hotelId: widget.hotelId,
-                              roomNumber: roomsIncrementer,
-                              startedDate: startedDate,
-                              adultCount: adultsIncrementer,
-                            );
+                            // roomCounter.getRoomList(
+                            //   childCount: childrenIncrementer,
+                            //   finishedSDate: finishedDate,
+                            //   hotelId: widget.hotelId,
+                            //   roomNumber: roomsIncrementer,
+                            //   startedDate: startedDate,
+                            //   adultCount: adultsIncrementer,
+                            // );
+                            notifier.getAllRoom(hotelId: widget.hotelId);
                             setState(() {
                               amountNights = analyseDifferenceDays(
                                   startedDate, finishedDate);
-                              isFiltered = true;
+                              isFiltered = false;
                             });
                           },
                           child: Container(
@@ -348,6 +349,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   isFiltered = false;
                                 });
                                 notifier.getAllRoom(hotelId: widget.hotelId);
+                                amountNights = 1;
                               },
                               child: Container(
                                   padding: EdgeInsets.all(8.o),
@@ -378,18 +380,19 @@ class _OrderScreenState extends State<OrderScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 12.o),
                         child: InkWell(
                           onTap: () {
-                            roomCounter.getRoomList(
-                              childCount: childrenIncrementer,
-                              finishedSDate: finishedDate,
-                              hotelId: widget.hotelId,
-                              roomNumber: roomsIncrementer,
-                              startedDate: startedDate,
-                              adultCount: adultsIncrementer,
-                            );
+                            // roomCounter.getRoomList(
+                            //   childCount: childrenIncrementer,
+                            //   finishedSDate: finishedDate,
+                            //   hotelId: widget.hotelId,
+                            //   roomNumber: roomsIncrementer,
+                            //   startedDate: startedDate,
+                            //   adultCount: adultsIncrementer,
+                            // );
+                            notifier.getAllRoom(hotelId: widget.hotelId);
                             setState(() {
                               amountNights = analyseDifferenceDays(
                                   startedDate, finishedDate);
-                              isFiltered = true;
+                              isFiltered = false;
                             });
                           },
                           child: Container(
@@ -429,6 +432,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                   isFiltered = false;
                                 });
                                 notifier.getAllRoom(hotelId: widget.hotelId);
+                                amountNights = 1;
                               },
                               child: Container(
                                   padding: EdgeInsets.all(8.o),
@@ -466,18 +470,19 @@ class _OrderScreenState extends State<OrderScreen> {
                         margin: EdgeInsets.symmetric(horizontal: 12.o),
                         child: InkWell(
                           onTap: () {
-                            roomCounter.getRoomList(
-                              childCount: childrenIncrementer,
-                              finishedSDate: finishedDate,
-                              hotelId: widget.hotelId,
-                              roomNumber: roomsIncrementer,
-                              startedDate: startedDate,
-                              adultCount: adultsIncrementer,
-                            );
+                            // roomCounter.getRoomList(
+                            //   childCount: childrenIncrementer,
+                            //   finishedSDate: finishedDate,
+                            //   hotelId: widget.hotelId,
+                            //   roomNumber: roomsIncrementer,
+                            //   startedDate: startedDate,
+                            //   adultCount: adultsIncrementer,
+                            // );
+                            notifier.getAllRoom(hotelId: widget.hotelId);
                             setState(() {
                               amountNights = analyseDifferenceDays(
                                   startedDate, finishedDate);
-                              isFiltered = true;
+                              isFiltered = false;
                             });
                           },
                           child: Container(
@@ -515,6 +520,7 @@ class _OrderScreenState extends State<OrderScreen> {
                               onTap: () {
                                 isFiltered = false;
                                 notifier.getAllRoom(hotelId: widget.hotelId);
+                                amountNights = 1;
                               },
                               child: Container(
                                   padding: EdgeInsets.all(8.o),
@@ -552,19 +558,20 @@ class _OrderScreenState extends State<OrderScreen> {
                     margin: EdgeInsets.symmetric(horizontal: 12.o),
                     child: InkWell(
                       onTap: () {
-                        roomCounter.getRoomList(
-                          childCount: childrenIncrementer,
-                          finishedSDate: finishedDate,
-                          hotelId: widget.hotelId,
-                          roomNumber: roomsIncrementer,
-                          startedDate: startedDate,
-                          adultCount: adultsIncrementer,
-                        );
+                        // roomCounter.getRoomList(
+                        //   childCount: childrenIncrementer,
+                        //   finishedSDate: finishedDate,
+                        //   hotelId: widget.hotelId,
+                        //   roomNumber: roomsIncrementer,
+                        //   startedDate: startedDate,
+                        //   adultCount: adultsIncrementer,
+                        // );
+                        notifier.getAllRoom(hotelId: widget.hotelId);
                         setState(() {
                           amountNights =
                               analyseDifferenceDays(startedDate, finishedDate);
 
-                          isFiltered = true;
+                          isFiltered = false;
                         });
                       },
                       child: Container(
@@ -609,6 +616,7 @@ class _OrderScreenState extends State<OrderScreen> {
                           onTap: () {
                             notifier.getAllRoom(hotelId: widget.hotelId);
                             isFiltered = false;
+                            amountNights  = 1;
                           },
                           child: Container(
                               padding: EdgeInsets.all(8.o),

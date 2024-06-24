@@ -147,13 +147,13 @@ class _OrderHotelBottomSheetState extends State<OrderHotelBottomSheet> {
                     : EdgeInsets.only(bottom: 12.o, left: 12.o, right: 12.o),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(12.o)),
-                  color: selectedIndex == -1 || selectedIndex == 2||selectedIndex ==1
+                  color: selectedIndex == -1 || selectedIndex == 2
                       ? mTheme.colorScheme.primary.withOpacity(0.2)
                       : mTheme.colorScheme.primary,
                 ),
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: selectedIndex == -1 || selectedIndex == 2||selectedIndex==1
+                  onPressed: selectedIndex == -1 || selectedIndex == 2
                       ? null
                       : () {
                           print(widget.room.originalPrice);

@@ -133,8 +133,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text(orderId.tr,
-                        style: pw.TextStyle(font: regularTtf)),
+                    pw.Text(orderId.tr, style: pw.TextStyle(font: regularTtf)),
                     pw.Text(widget.status.id, style: pw.TextStyle(font: ttf)),
                   ],
                 ),
@@ -142,8 +141,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text(total.tr,
-                        style: pw.TextStyle(font: regularTtf)),
+                    pw.Text(total.tr, style: pw.TextStyle(font: regularTtf)),
                     pw.Text(widget.status.price,
                         style: pw.TextStyle(font: ttf)),
                   ],
@@ -152,8 +150,7 @@ class _PermissionScreenState extends State<PermissionScreen> {
                 pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text(hotel.tr,
-                        style: pw.TextStyle(font: regularTtf)),
+                    pw.Text(hotel.tr, style: pw.TextStyle(font: regularTtf)),
                     pw.Text(widget.status.roomId,
                         style: pw.TextStyle(font: ttf)),
                   ],
@@ -176,9 +173,9 @@ class _PermissionScreenState extends State<PermissionScreen> {
 
     // Get the directory for saving the file
     getDownloadPath().then((value) async {
-    final filePath = '$value/hostel-check.pdf';
+      final filePath = '$value/hostel-check.pdf';
 
-    // Save the PDF file
+      // Save the PDF file
 
       final file = File(filePath);
       await file.writeAsBytes(await pdf.save());
@@ -569,10 +566,16 @@ class _PermissionScreenState extends State<PermissionScreen> {
 
                   Gap(10.o),
                   widget.barcode.isEmpty
-                      ? Text(
-                          barCodeNotFound.tr,
-                          style: theme.primaryTextStyle.copyWith(
-                              color: mTheme.textTheme.bodyMedium!.color),
+                      // ? Text(
+                      //     barCodeNotFound.tr,
+                      //     style: theme.primaryTextStyle.copyWith(
+                      //         color: mTheme.textTheme.bodyMedium!.color),
+                      //   )
+
+                      ? SizedBox(
+                          width: 250.w,
+                          height: 50.h,
+                          child: SfBarcodeGenerator(value: '404'),
                         )
                       : SizedBox(
                           width: 250.w,

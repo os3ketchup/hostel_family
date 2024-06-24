@@ -55,6 +55,7 @@ class _AllCommentScreenState extends State<AllCommentScreen> {
                         .length,
                 itemBuilder: (context, index) {
                   return CommentsItem(
+                    fromAllScreen: true,
                     comment: notifier.commentList![index],
                     rating: double.tryParse(
                           notifier.commentList![index].rating,

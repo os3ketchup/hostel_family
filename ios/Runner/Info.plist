@@ -27,8 +27,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>Family Hostel would like to access your photo library to verify your identity and enhance security measures. For example, we use photos to confirm the validity of documents and prevent fraudulent activities. Your photos may contain data associated with location, depth information, captions, and audio, which help us in this verification process.</string>
-.</string>
+    <string>Family Hostel would like to access your photo library to verify your identity and enhance security measures.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

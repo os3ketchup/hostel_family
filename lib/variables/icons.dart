@@ -45,4 +45,5 @@ class SVGIcons{
   static const String info = 'assets/icons/info-circle.svg';
   static const String read   = 'assets/icons/tick-circle.svg';
   static const String trasnlate   = 'assets/icons/translate.svg';
+  static const String night   = 'assets/icons/night.svg';
 }

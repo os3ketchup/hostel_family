@@ -90,6 +90,7 @@ class PrefKeys {
   static const String born = 'born';
   static const String authKey = 'auth_key';
   static const String theme = 'theme';
+  static const String isDark = 'isDark';
   static const String phoneNumber = 'phone';
   static const String genderName = 'gender_name';
   static const String userId = 'user_id';

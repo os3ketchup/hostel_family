@@ -132,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       () => _goDefinedNavigation(const MyCommentScreen()),
                       mTheme.colorScheme.primary,
                       mTheme),
-                  _buildNightMode(themeNotifier, system.tr, SVGIcons.mask,
+                  _buildNightMode(themeNotifier, system.tr, SVGIcons.night,
                       theme.primaryColor, mTheme),
                   buildLanguageMode(themeNotifier, language.tr,
                       SVGIcons.trasnlate, mTheme.colorScheme.primary, mTheme),
@@ -357,26 +357,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       fontSize: 16.o),
                 ),
               ),
-              DropdownButton(
-                value: themeNotifier.currentTheme,
-                items: modeListKey
-                    .map((mode) => DropdownMenuItem(
-
-                          value: mode,
-                          child: Text(
-                            mode.tr,
-                            style: theme.primaryTextStyle
-                                .copyWith(fontSize: 14.o,color: mTheme.colorScheme.primary),
-                          ),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    themeNotifier.changeTheme(value ?? 'system');
-                    // _regionController.text = selectedMode;
-                  });
-                },
-              ),
+              Switch(value: themeNotifier.isDark, onChanged: (value) {
+                setState(() {
+                  themeNotifier.changeToDarkTheme(value ?? false);
+                });
+              },),
+              // DropdownButton(
+              //   value: themeNotifier.currentTheme,
+              //   items: modeListKey
+              //       .map((mode) => DropdownMenuItem(
+              //
+              //             value: mode,
+              //             child: Text(
+              //               mode.tr,
+              //               style: theme.primaryTextStyle
+              //                   .copyWith(fontSize: 14.o,color: mTheme.colorScheme.primary),
+              //             ),
+              //           ))
+              //       .toList(),
+              //   onChanged: (value) {
+              //     setState(() {
+              //       themeNotifier.changeTheme(value ?? 'system');
+              //       // _regionController.text = selectedMode;
+              //     });
+              //   },
+              // ),
             ],
           ),
           Gap(15.o),

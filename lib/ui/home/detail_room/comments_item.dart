@@ -14,10 +14,17 @@ import '../../../providers/comment_provider.dart';
 import '../../../variables/images.dart';
 
 class CommentsItem extends StatefulWidget {
-  const CommentsItem({super.key, required this.comment, required this.rating,  this.width = 1});
+  const CommentsItem(
+      {super.key,
+      required this.comment,
+      required this.rating,
+      this.width = 1,
+      required this.fromAllScreen});
+
   final double width;
   final Comment comment;
   final double rating;
+  final bool fromAllScreen;
 
   @override
   State<CommentsItem> createState() => _CommentsItemState();
@@ -36,13 +43,16 @@ class _CommentsItemState extends State<CommentsItem> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(12.o)),
               border: DashedBorder.fromBorderSide(
-                side:
-                    BorderSide(width: 2.o, color: mTheme.colorScheme.secondary),
+                side: BorderSide(
+                    width: 1.o,
+                    color: mTheme.colorScheme.secondary.withOpacity(0.5)),
                 dashLength: 4,
               ),
               color: mTheme.colorScheme.background),
           height: 160.o,
-          width: width * widget.width,
+          width: widget.fromAllScreen
+              ? width * widget.width
+              : width * widget.width * 0.9,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -160,13 +170,19 @@ class _CommentsItemState extends State<CommentsItem> {
               print('Selected: $result');
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-               PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: 'option1',
-                child: Text(complain.tr,style: theme.primaryTextStyle.copyWith(color: mTheme.textTheme.bodyMedium!.color),),
+                child: Text(
+                  complain.tr,
+                  style: theme.primaryTextStyle
+                      .copyWith(color: mTheme.textTheme.bodyMedium!.color),
+                ),
               ),
-               PopupMenuItem<String>(
+              PopupMenuItem<String>(
                 value: 'option2',
-                child: Text(markAsSpam.tr,style: theme.primaryTextStyle.copyWith(color: mTheme.textTheme.bodyMedium!.color)),
+                child: Text(markAsSpam.tr,
+                    style: theme.primaryTextStyle
+                        .copyWith(color: mTheme.textTheme.bodyMedium!.color)),
               ),
             ],
           ),

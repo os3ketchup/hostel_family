@@ -59,7 +59,7 @@ class _RoomItemState extends State<RoomItem> {
 
     return Container(
       clipBehavior: Clip.hardEdge,
-      decoration: BoxDecoration(color: Colors.white,boxShadow: [BoxShadow(blurRadius: 4,offset:Offset(1, 4) ,spreadRadius: 0.3,color: Colors.black.withOpacity(0.2),)],
+      decoration: BoxDecoration(color: mTheme.colorScheme.onPrimary,boxShadow: [BoxShadow(blurRadius: 4,offset:Offset(1, 4) ,spreadRadius: 0.3,color: Colors.black.withOpacity(0.2),)],
           border: Border.all(width: 1.o, color: Colors.grey.withOpacity(0.1)),
           borderRadius: BorderRadius.circular(12.o)),
       margin: EdgeInsets.symmetric(horizontal: 12.o,vertical: 6.o),
@@ -311,6 +311,7 @@ class _RoomItemState extends State<RoomItem> {
                   const Spacer(),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.o)),
                           backgroundColor: mTheme.colorScheme.primary),
                       onPressed: () {
                         widget.onReserve(formatStringToCash(widget.room.originalPrice, widget.amountNight));
@@ -318,7 +319,7 @@ class _RoomItemState extends State<RoomItem> {
                       child: Text(
                         reserve.tr,
                         style: theme.primaryTextStyle
-                            .copyWith(color: mTheme.colorScheme.onPrimary,fontSize: 10.o),
+                            .copyWith(color: mTheme.colorScheme.onPrimary,fontSize: 12.o),
                       )),
                 ],
               ),

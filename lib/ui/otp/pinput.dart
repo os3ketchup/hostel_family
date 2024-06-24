@@ -244,7 +244,6 @@ class _RegisterPinPutState extends State<RegisterPinPut> {
       setState(() {
         isError = false;
       });
-      print('works result');
         print('veriify token $fCMToken');
       if (result.data!['first_name'] is String &&
           '${result.data!['first_name']}'.isNotEmpty) {

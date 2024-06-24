@@ -47,6 +47,7 @@ class _OrderItemState extends State<OrderItem> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   '${orderId.tr}: ${widget.status.id}',
@@ -55,6 +56,16 @@ class _OrderItemState extends State<OrderItem> {
                 ),
                 // const Spacer(),
                 // Icon(Icons.more_vert,color: theme.textFieldHintColor,),
+                Container(
+                  padding: EdgeInsets.all(8.o),
+                  decoration: BoxDecoration(
+                      color: theme.backgroundGrey,
+                      borderRadius: BorderRadius.all(Radius.circular(12.o))),
+                  child: Text(
+                    widget.status.paymentStatusString,
+                    style: theme.primaryTextStyle.copyWith(color: Colors.red,fontSize: 10.o),
+                  ),
+                )
               ],
             ),
             Divider(
@@ -80,33 +91,26 @@ class _OrderItemState extends State<OrderItem> {
                             fontWeight: FontWeight.w700,
                             fontSize: 16.o),
                       ),
+                      Gap(14.o),
                       Text(
                         widget.status.roomId,
                         style: theme.hintTextFieldStyle
-                            .copyWith(color: mTheme.colorScheme.secondary),
-                      )
+                            .copyWith(color: mTheme.colorScheme.secondary,fontSize: 14.o),
+                      ),
+                      Gap(5.o),
                     ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(8.o),
-                  decoration: BoxDecoration(
-                      color: theme.backgroundGrey,
-                      borderRadius: BorderRadius.all(Radius.circular(12.o))),
-                  child: Text(
-                    widget.status.paymentStatusString,
-                    style: theme.primaryTextStyle.copyWith(color: Colors.red),
                   ),
                 ),
               ],
             ),
+            Gap(10.o),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   priceInfo.tr,
                   style: theme.hintTextFieldStyle
-                      .copyWith(color: mTheme.colorScheme.secondary),
+                      .copyWith(color: mTheme.colorScheme.secondary,fontSize: 14.o),
                 ),
                 Row(
                   children: [

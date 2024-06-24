@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hostels/variables/util_variables.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../apptheme.dart';
 

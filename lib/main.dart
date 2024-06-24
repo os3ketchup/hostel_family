@@ -14,7 +14,6 @@ import 'package:hostels/variables/language.dart';
 import 'package:hostels/variables/util_variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:ui' as ui;
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 Future<void> _fMBH(RemoteMessage message) async =>
@@ -120,7 +119,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
         final notifier = ref.watch(themeProvider);
         return MaterialApp(
           darkTheme: ThemeData.dark().copyWith(colorScheme: kDarkColorScheme),
-          themeMode: notifier.themeMode,
+          themeMode: notifier.darkThemeMode,
           home:const SplashScreen(),
           debugShowCheckedModeBanner: false,
           localizationsDelegates: [
