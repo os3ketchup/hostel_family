@@ -19,7 +19,6 @@ HostelsCounter get hostelsCounter {
 
 class HostelsCounter with ChangeNotifier {
   List<Hostels>? hostelsList;
-  List<Hostels>? searchedList;
   List<FavouriteHotel>? favouriteHotelList;
   List<Category>? categoryList;
   int page = 1;
@@ -45,28 +44,63 @@ class HostelsCounter with ChangeNotifier {
     update();
   }
 
-  List<bool> _searchings = [];
+  // Future getAllPodcasts() async {
+  // if (!isPLoading && (page != lastPage) && page <= maxPage) {
+  //   lastPage = page;
+  //   isPLoading = true;
+  //   final result = await client.get(
+  //       "${Links.allPodcasts}?${filterCategoryData.map((id) => 'categoryIds[]=${id.id}').join('&')}&price_type=${pref.getString(AppKeys.price)}&page=$page");
+  //   if (page == 1) {
+  //     podcastData.clear();
+  //   }
+  //   isPLoading = false;
+  //   page++;
+  //   update();
+  //     if (result.status == 200 && result.data['data']['items'] is List) {
+  //       podcastData.addAll(List<PodcastModel>.from(
+  //           result.data['data']['items'].map((x) => PodcastModel.fromJson(x))));
+  //       try {
+  //         maxPage = result.data['data']['_meta']['pageCount'];
+  //       } catch (e) {
+  //         print("e");
+  //       }
+  //       update();
+  //     } else {
+  //       update();
+  //       return Future.error(result.message);
+  //     }
+  //   }
+  // }
 
-  Future<dynamic> searchHotelByPage({String letter = ''}) async {
-    if (_searchings.isEmpty || page == 1) {
-      MainModel result =
-          await client.get('${Links.searchHotelByName}$letter&page=$page');
+  int maxPage = 2, currentPage = 1, lastPage = 0;
+  bool isLoading = false;
+  List<Hostels> searchedList = [];
+void clearItem(){
+  maxPage = 2;
+  currentPage = 1;
+  lastPage = 0;
+  searchedList.clear();
+}
+  Future<dynamic> KsearchHotelByName(String letter) async {
+
+    if (!isLoading && (currentPage != lastPage) && currentPage <= maxPage) {
+      lastPage = currentPage;
+      if (page == 1) {
+        searchedList.clear();
+      }
+      MainModel result = await client.get('${Links.searchHotelByName}$letter&page=$currentPage');
+      currentPage++;
+
+      update();
       if (result.data['items'] is List) {
         try {
-          if (_searchings[0]) {
-            searchedList = [];
-          }
-
-          searchedList = List<Hostels>.from(
-              result.data['items'].map((hostel) => Hostels.fromJSON(hostel)));
-          page++;
-        } catch (e) {
-          print('$e categoryList caught error');
-          searchedList = [];
-        }
+          searchedList.addAll(List<Hostels>.from(
+              result.data['items'].map((x) => Hostels.fromJSON(x))));
+          // searchedList = List<Hostels>.from(
+          //     result.data['items'].map((hostel) => Hostels.fromJSON(hostel)));
+          maxPage = result.data['data']['_meta']['pageCount'];
+        } catch (e) {}
       }
-      update();
-      _searchings.removeAt(0);
     }
   }
 

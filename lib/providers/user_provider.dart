@@ -12,7 +12,6 @@ final userProvider = ChangeNotifierProvider<Counter>((ref) {
 
 Counter? _counter;
 
-
 Counter get userCounter {
   _counter ??= Counter();
   return _counter!;
@@ -40,20 +39,17 @@ class Counter with ChangeNotifier {
 
 
 
-
-
-
-
   Future<dynamic> getNotificationList() async {
-    MainModel result  = await client.get(Links.getAllNotification);
-    if(result.data is List){
-      try{
-        hostelNotificationList = List<HostelNotification>.from(result.data.map((notification)=>HostelNotification.fromJSON(notification)));
-      }catch(e){
+    MainModel result = await client.get(Links.getAllNotification);
+    if (result.data is List) {
+      try {
+        hostelNotificationList = List<HostelNotification>.from(result.data
+            .map((notification) => HostelNotification.fromJSON(notification)));
+      } catch (e) {
         print('error caught: $e');
         hostelNotificationList = [];
       }
-    }else{
+    } else {
       print('result: ${result.status}');
     }
     update();

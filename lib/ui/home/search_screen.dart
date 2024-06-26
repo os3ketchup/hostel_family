@@ -24,14 +24,20 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _controller = TextEditingController();
+  ScrollController _scrollController = ScrollController();
   final FocusNode _focusNode = FocusNode();
   var isConnected = false;
   var likeTapped = false;
 
   @override
   void initState() {
-
     hostelsCounter.searchHotelByName('');
+    _scrollController.addListener(() async {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        hostelsCounter.searchHotelByName("");
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) => _requestKeyboard());
     super.initState();
   }
@@ -94,6 +100,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           onChanged: (value) {
                             setState(() {
                               _controller.text = value;
+                              notifier.clearItem();
                               notifier.searchHotelByName(value);
                             });
                           },

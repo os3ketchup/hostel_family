@@ -19,6 +19,7 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
+  ScrollController _controller = ScrollController();
   @override
   void initState() {
     userCounter.getNotificationList();
@@ -53,6 +54,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         builder: (context, ref, child) {
           var notifier = ref.watch(userProvider);
           return ListView.builder(
+            controller: _controller,
             itemCount: notifier.hostelNotificationList!.length,
             itemBuilder: (context, index) {
               return InkWell(
